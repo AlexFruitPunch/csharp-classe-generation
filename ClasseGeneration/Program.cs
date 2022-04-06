@@ -27,6 +27,10 @@ Testate le vostre funzioni di statistiche, per esempio aggiungendo l'opzione "st
 vi stampi i risultati delle funzioni appena dichiarate. */
 
 
+
+
+
+
 //------------------------- PROGRAMMA PRINCIPALE --------------------------------
 
 //Numero massimo di studenti in aula
@@ -39,9 +43,7 @@ string[] nomi = new string[quantitàStudenti];
 string[] cognomi = new string[quantitàStudenti];
 int[] età = new int[quantitàStudenti];
 
-//variabile Flag per smettere di aggiungere/togliere studenti dal registro
-bool chiudiRegistro = true;
-
+Console.WriteLine("----------------- Registro di Classe -----------------");
 ApriChiudiRegistro();
 
 Console.WriteLine("vuoi stampare la lista degli alunni in classe? [si/no]");
@@ -78,7 +80,13 @@ switch (sceltaUtente)
         break;
 }
 
+Console.WriteLine("\nl'età media degli studenti è: " + calcolaEtaMediaClasse(età));
+Console.WriteLine("lo studente più giovane è: " + EtaPiuGiovane(età));
+Console.WriteLine("lo studente più vecchio è: " + EtaPiuVecchio(età));
+
+
 //---------------------- FINE PROGRAMMA PRINCIPALE ------------------------------
+
 
 //--------------------------------- FUNZIONI ------------------------------------
 
@@ -146,11 +154,12 @@ void aggiungiAlunno()
     alunniPresenti++;
 }
 
-void rimuoviUltimoAlunno()
+//Rimuove l'ultimo alunno
+void rimuoviUltimoAlunno(string[] nomeAlunno, string[] cognomeAlunno, int[] etàAlunno)
 {
-    nomi[alunniPresenti] = "";
-    cognomi[alunniPresenti] = "";
-    età[alunniPresenti] = 0;
+    nomeAlunno[alunniPresenti - 1] = "";
+    cognomeAlunno[alunniPresenti - 1] = "";
+    etàAlunno[alunniPresenti - 1] = 0;
     Console.WriteLine("Ultimo alunno in lista Rimosso");
     alunniPresenti--;
 }
@@ -158,9 +167,11 @@ void rimuoviUltimoAlunno()
 //funzione che gestisce il registro di classe aggiungendo o rimuovendo gli studenti
 void ApriChiudiRegistro()
 {
+    //variabile Flag per smettere di aggiungere/togliere studenti dal registro
+    bool chiudiRegistro = true;
     while (chiudiRegistro)
     {
-        Console.WriteLine("Scegli se Aggiungere, Rimuovere un alunno o chiudere il registro: [aggiungi/rimuovi/chiudi]");
+        Console.WriteLine("\nScegli se Aggiungere, Rimuovere un alunno o chiudere il registro: [aggiungi/rimuovi/chiudi]");
         sceltaUtente = (Console.ReadLine());
         sceltaUtente = sceltaUtente.ToLower();
         if (alunniPresenti <= quantitàStudenti) { 
@@ -170,7 +181,7 @@ void ApriChiudiRegistro()
                     aggiungiAlunno();
                     break;
                 case "rimuovi":
-                    rimuoviUltimoAlunno();
+                    rimuoviUltimoAlunno(nomi, cognomi, età);
                     break;
                 case "chiudi":
                     chiudiRegistro = false;
@@ -185,5 +196,49 @@ void ApriChiudiRegistro()
             Console.WriteLine("Mi dispiace, non possiamo più aggiungere studenti");
         }
     }
+}
+
+//somma gli elementi di un array
+int Somma(int[] num)
+{
+    int somma = 0;
+    for (int i = 0; i < num.Length; i++)
+    {
+        somma = somma + num[i]; 
+    }
+    return somma;
+}
+
+//calcola l'Eta Media della Classe
+int calcolaEtaMediaClasse(int[] etaStudenti)
+{
+    int media = Somma(etaStudenti) / alunniPresenti;
+    return media;
+}
+
+int EtaPiuGiovane(int[] etaStudenti)
+{
+    int piùGiovane = etaStudenti[0];
+    for(int i = 0; i < etaStudenti.Length; i++)
+    {
+        if(piùGiovane > etaStudenti[i] && etaStudenti[i] != 0)
+        {
+            piùGiovane = etaStudenti[i];
+        }
+    }
+    return piùGiovane;
+}
+
+int EtaPiuVecchio(int[] etaStudenti)
+{
+    int piùVecchio = etaStudenti[0];
+    for (int i = 0; i < etaStudenti.Length; i++)
+    {
+        if (piùVecchio < etaStudenti[i])
+        {
+            piùVecchio = etaStudenti[i];
+        }
+    }
+    return piùVecchio;
 }
 //------------------------------- FINE FUNZIONI ---------------------------------
