@@ -31,13 +31,21 @@ vi stampi i risultati delle funzioni appena dichiarate. */
 
 //Numero massimo di studenti in aula
 int quantitàStudenti = 10;
+int alunniPresenti = 0;
 
 //DICHIARAZIONE DEGLI ARRAY COME VARIABILI GLOBALI
 string[] nomi = new string[quantitàStudenti];
 string[] cognomi = new string[quantitàStudenti];
 int[] età = new int[quantitàStudenti];
 
+for (int i = 0; i < quantitàStudenti; i++)
+{
+    aggiungiAlunno();
+}
 
+stampaCognomeAlunni(cognomi);
+stampanomiAlunni(nomi);
+stampaEtaAlunni(età);
 
 //---------------------- FINE PROGRAMMA PRINCIPALE ------------------------------
 
@@ -62,11 +70,43 @@ void stampanomiAlunni(string[] nome)
 }
 
 //stampa le età degli alunni
-void stampaEtaAlunni(string[] eta)
+void stampaEtaAlunni(int[] eta)
 {
     for (int i = 0; i < eta.Length; i++)
     {
         Console.WriteLine("età del " + i + "° alunno: " + eta[i]);
     }
 }
+
+
+//aggiunge il nome dell'alunno alla classe
+void aggiungiNomeAlunno()
+{
+    Console.WriteLine("Inserisci il nome del " + (alunniPresenti + 1) + "° studente: ") ;
+    nomi[alunniPresenti] = Console.ReadLine();
+}
+
+//aggiunge il cognome dell'alunno alla classe
+void aggiungiCognomeAlunno()
+{
+    Console.WriteLine("Inserisci il cognome del " + (alunniPresenti + 1) + "° studente: ");
+    cognomi[alunniPresenti] = Console.ReadLine();
+}
+
+//aggiunge l'età dell'alunno alla classe
+void aggiungietàAlunno()
+{
+    Console.WriteLine("Inserisci l'età del " + (alunniPresenti + 1) + "° studente: ");
+    età[alunniPresenti] = int.Parse(Console.ReadLine());
+}
+
+//aggiunge un alunno alla classe
+void aggiungiAlunno()
+{
+    aggiungiNomeAlunno();
+    aggiungiCognomeAlunno();
+    aggiungietàAlunno();
+    alunniPresenti++;
+}
+
 //------------------------------- FINE FUNZIONI ---------------------------------
