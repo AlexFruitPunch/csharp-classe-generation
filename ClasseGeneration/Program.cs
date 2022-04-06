@@ -81,8 +81,8 @@ switch (sceltaUtente)
 }
 
 Console.WriteLine("\nl'età media degli studenti è: " + calcolaEtaMediaClasse(età));
-Console.WriteLine("lo studente più giovane è: " + EtaPiuGiovane(età));
-Console.WriteLine("lo studente più vecchio è: " + EtaPiuVecchio(età));
+Console.WriteLine("lo studente più giovane ha: " + EtaPiuGiovane(età) + " anni");
+Console.WriteLine("lo studente più vecchio ha: " + EtaPiuVecchio(età) + " anni");
 
 
 //---------------------- FINE PROGRAMMA PRINCIPALE ------------------------------

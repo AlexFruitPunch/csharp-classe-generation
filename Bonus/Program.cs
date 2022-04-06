@@ -13,6 +13,10 @@ int quantitàStudenti = 10;
 int alunniPresenti = 0;
 string sceltaUtente;
 
+//variabili che mi danno la posizione negli array degli studenti più giovani o più vecchi
+int ilpiùgiovane = 0;
+int ilpiùvecchio = 0;
+
 //DICHIARAZIONE DEGLI ARRAY COME VARIABILI GLOBALI
 string[] nomi = new string[quantitàStudenti];
 string[] cognomi = new string[quantitàStudenti];
@@ -55,9 +59,26 @@ switch (sceltaUtente)
         break;
 }
 
-Console.WriteLine("\nl'età media degli studenti è: " + calcolaEtaMediaClasse(età));
-Console.WriteLine("lo studente più giovane è: " + EtaPiuGiovane(età));
-Console.WriteLine("lo studente più vecchio è: " + EtaPiuVecchio(età));
+//Opzione di visualizzazione dati statistici della classe
+Console.WriteLine("Cosa vuoi fare ora?\n hai 2 Opzioni di visualizzazione:");
+Console.WriteLine("Eta Media o Statistiche: [media o statistiche]");
+sceltaUtente = (Console.ReadLine());
+sceltaUtente = sceltaUtente.ToLower();
+switch (sceltaUtente)
+{
+    case "media":
+        Console.WriteLine("\nl'età media degli studenti è: " + calcolaEtaMediaClasse(età));
+        break;
+    case "statistiche":
+        Console.WriteLine("lo studente più giovane ha " + EtaPiuGiovane(età, ref ilpiùgiovane) + " anni e si chiama " + nomi[ilpiùgiovane] + " " + cognomi[ilpiùgiovane]);
+        Console.WriteLine("lo studente più vecchio ha " + EtaPiuVecchio(età, ref ilpiùvecchio) + " anni e si chiama " + nomi[ilpiùvecchio] + " " + cognomi[ilpiùvecchio]);
+        break;
+    default:
+        break;
+}
+
+
+
 
 
 //---------------------- FINE PROGRAMMA PRINCIPALE ------------------------------
@@ -192,29 +213,33 @@ int calcolaEtaMediaClasse(int[] etaStudenti)
     return media;
 }
 
-int EtaPiuGiovane(int[] etaStudenti)
+int EtaPiuGiovane(int[] etaStudente, ref int giovane)
 {
-    int piùGiovane = etaStudenti[0];
-    for (int i = 0; i < etaStudenti.Length; i++)
+    //piùGiovane viene inizializzato con il l'età del primo studente
+    int etaAlunnoPiùGiovane = etaStudente[0];
+    for (int i = 0; i < etaStudente.Length; i++)
     {
-        if (piùGiovane > etaStudenti[i] && etaStudenti[i] != 0)
+        if (etaAlunnoPiùGiovane > etaStudente[i] && etaStudente[i] != 0)
         {
-            piùGiovane = etaStudenti[i];
+            etaAlunnoPiùGiovane = etaStudente[i];
+            giovane = i;
         }
     }
-    return piùGiovane;
+    return etaAlunnoPiùGiovane;
 }
 
-int EtaPiuVecchio(int[] etaStudenti)
+int EtaPiuVecchio(int[] etaStudente, ref int vecchio)
 {
-    int piùVecchio = etaStudenti[0];
-    for (int i = 0; i < etaStudenti.Length; i++)
+    //piùVecchio viene inizializzato con il l'età del primo studente
+    int etaAlunnoPiùVecchio = etaStudente[0];
+    for (int i = 0; i < etaStudente.Length; i++)
     {
-        if (piùVecchio < etaStudenti[i])
+        if (etaAlunnoPiùVecchio < etaStudente[i])
         {
-            piùVecchio = etaStudenti[i];
+            etaAlunnoPiùVecchio = etaStudente[i];
+            vecchio = i;
         }
     }
-    return piùVecchio;
+    return etaAlunnoPiùVecchio;
 }
 //------------------------------- FINE FUNZIONI ---------------------------------
