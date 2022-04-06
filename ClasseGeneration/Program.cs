@@ -38,9 +38,23 @@ string[] nomi = new string[quantitàStudenti];
 string[] cognomi = new string[quantitàStudenti];
 int[] età = new int[quantitàStudenti];
 
-for (int i = 0; i < quantitàStudenti; i++)
-{
-    aggiungiAlunno();
+while (alunniPresenti <= quantitàStudenti) { 
+Console.WriteLine("Vuoi aggiungere o rimuovere un Alunno? [aggiungi/rimuovi]");
+string sceltaUtente = (Console.ReadLine());
+sceltaUtente = sceltaUtente.ToLower();
+
+    switch (sceltaUtente)
+    {
+        case "aggiungi":
+            aggiungiAlunno();
+            break;
+        case "rimuovi":
+            rimuoviUltimoAlunno();
+            break;
+        default:
+            Console.WriteLine("Comando errato, reinserire un nuovo imput");
+            break;
+    }
 }
 
 stampaCognomeAlunni(cognomi);
@@ -54,27 +68,33 @@ stampaEtaAlunni(età);
 //stampa i cognomi degli alunni
 void stampaCognomeAlunni(string[] cognome)
 {
+    Console.WriteLine();
+    Console.WriteLine("Cognomi di tutti gli studenti della classe presenti in aula: ");
     for (int i = 0; i < cognome.Length; i++)
     {
-        Console.WriteLine("Cognome del " + i + "° alunno: " + cognome[i]);
+        Console.WriteLine("Cognome del " + (i + 1) + "° alunno: " + cognome[i]);
     }
 }
 
 //stampa i nomi degli alunni
 void stampanomiAlunni(string[] nome)
 {
+    Console.WriteLine();
+    Console.WriteLine("Nomi di tutti gli studenti della classe presenti in aula: ");
     for (int i = 0; i < nome.Length; i++)
     {
-        Console.WriteLine("nome del " + i + "° alunno: " + nome[i]);
+        Console.WriteLine("nome del " + (i + 1) + "° alunno: " + nome[i]);
     }
 }
 
 //stampa le età degli alunni
 void stampaEtaAlunni(int[] eta)
 {
+    Console.WriteLine();
+    Console.WriteLine("età di tutti gli studenti della classe presenti in aula: ");
     for (int i = 0; i < eta.Length; i++)
     {
-        Console.WriteLine("età del " + i + "° alunno: " + eta[i]);
+        Console.WriteLine("età del " + (i + 1) + "° alunno: " + eta[i]);
     }
 }
 
@@ -109,4 +129,12 @@ void aggiungiAlunno()
     alunniPresenti++;
 }
 
+void rimuoviUltimoAlunno()
+{
+    nomi[alunniPresenti] = "";
+    cognomi[alunniPresenti] = "";
+    età[alunniPresenti] = 0;
+    Console.WriteLine("Ultimo alunno in lista Rimosso");
+    alunniPresenti--;
+}
 //------------------------------- FINE FUNZIONI ---------------------------------
